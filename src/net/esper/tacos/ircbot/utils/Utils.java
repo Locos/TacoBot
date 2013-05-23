@@ -31,7 +31,6 @@ public class Utils {
 	
 	public static String getFormattedPing(String arg1, int arg2) {
 		try {
-			if (arg1.contains("nigger")) return Colors.BLACK + "Fuck you vemacs, I'm not pinging that server for you";
 			String altHost = getHostFromSRV(arg1);
 			MinecraftPingReply mpr = MinecraftPing.getPing(altHost, (altHost.contains(":") ? Integer.parseInt(altHost.split(":")[1]) : arg2));
 			return processColorCodes(mpr.getMotd()) + " - " + mpr.getProtocolVersion() + " - " + mpr.getOnlinePlayers() + "/" + mpr.getMaxPlayers();
