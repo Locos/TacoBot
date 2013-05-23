@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   
   
-  <groupId>sw.hax.tacos</groupId>
+  <groupId>net.esper.tacos</groupId>
   <artifactId>ircbot</artifactId>
   <packaging>jar</packaging>
   <name>Tacos IRC Bot</name>
