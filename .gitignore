@@ -6,3 +6,4 @@ target/*
 .idea/
 *.eml
 *.iml
+pass.wd
