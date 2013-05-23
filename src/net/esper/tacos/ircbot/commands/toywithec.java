@@ -7,6 +7,8 @@ import net.esper.tacos.ircbot.utils.Utils;
 
 import org.pircbotx.User;
 
+//Oh boy do I have plans for this...
+
 public class toywithec implements ICommand {
 	
 	private static String[] trollmessages = new String[] { 
