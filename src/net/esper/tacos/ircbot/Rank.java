@@ -15,7 +15,7 @@ public enum Rank {
 	}
 	
 	public static Rank getRank(User user) {
-		if (user.getNick().equals("SuperSpyTX")) return UNUSABLE;
+		if (user.getNick().equals("vemacs")) return UNUSABLE;
 		if (user.getChannelsOpIn().contains(TacoBot.CHAN_OBJ)) {
 			return OP;
 		} else if (user.getChannelsVoiceIn().contains(TacoBot.CHAN_OBJ)) {
