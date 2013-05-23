@@ -26,7 +26,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		CommandProcessor.init();
 		bot.setName(NICK);
 		// bot.setVerbose(true);
-		bot.setVersion("TacoBot v1.1 - For #tacos only!");
+		bot.setVersion("TacoBot v1.2 - For #tacos only!");
 		bot.getListenerManager().addListener(new TacoBot());
 		
 		// Now connect the magic
