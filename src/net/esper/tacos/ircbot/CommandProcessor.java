@@ -50,7 +50,7 @@ public class CommandProcessor {
 					// Ok attempt to use reflection!
 					ICommand cmd = null;
 					try {
-						Class<ICommand> clazz = (Class<ICommand>) Class.forName("sw.hax.tacos.ircbot.commands." + ev.getMessage().split(" ")[0].substring(1));
+						Class<ICommand> clazz = (Class<ICommand>) Class.forName("net.esper.tacos.ircbot.commands." + ev.getMessage().split(" ")[0].substring(1));
 						cmd = clazz.newInstance();
 					} catch (Exception e) {} finally {
 						if (cmd == null) continue;
