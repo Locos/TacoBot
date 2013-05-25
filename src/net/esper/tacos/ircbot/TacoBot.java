@@ -38,16 +38,20 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		// Now connect the magic
 		try {
 			InputStream input = new FileInputStream(new File("config.yml"));
-		    Yaml yaml = new Yaml();
-		    Map config = (Map) yaml.load(input);
+			Yaml yaml = new Yaml();
+			Map config = (Map) yaml.load(input);
 			boolean ssl = false;
 
 			String server = (String) config.get("server");
-			int port = Integer.parseInt((String) config.get("port"));
+			System.out.println("Server: " + server);
+			int port = Integer.parseInt((String) config.get("port").toString());
+			System.out.println("Port: " + port);
 			String password = (String) config.get("password");
+			System.out.println("Password: " + password);
 			String channel = (String) config.get("channel");
+			System.out.println("Channel: " + channel);
 			ssl = (Boolean) config.get("ssl");
-
+			System.out.println("SSL: " + ssl);
 			if (ssl) {
 				// TODO: Figure out Java Keystore to only trust bouncer
 				// certificate.
