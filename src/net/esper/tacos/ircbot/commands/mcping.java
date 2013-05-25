@@ -27,7 +27,7 @@ public class mcping implements ICommand {
 		String res = Utils.getFormattedPing(
 				(arg1.split(":").length > 1 ? arg1.split(":")[0] : arg1), arg2);
 		if (res == null) {
-			TacoBot.sendMessage(user, "Sorry, I could not ping " + arg1 + ".");
+			TacoBot.sendMessage(user, "Sorry, I could not ping " + arg1 + ", with port " + arg2 + ".");
 			return;
 		}
 		TacoBot.sendMessage(user, res);

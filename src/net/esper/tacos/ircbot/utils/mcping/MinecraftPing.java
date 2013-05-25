@@ -25,8 +25,10 @@ public class MinecraftPing {
 		socket.connect(new InetSocketAddress(hostname, port), 3000);
 		DataInputStream in = new DataInputStream(socket.getInputStream());
 		DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-		out.write(254);
-		out.writeByte(1);
+		out.write(new byte[]{
+				(byte) 0xFE,
+				(byte) 0x01
+			});
 		if (in.read() != 255) {
 			throw new IOException(
 					"Bad message - An incorrect packet was received.");

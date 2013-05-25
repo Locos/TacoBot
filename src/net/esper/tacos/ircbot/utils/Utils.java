@@ -31,8 +31,8 @@ public class Utils {
 	
 	public static String getFormattedPing(String arg1, int arg2) {
 		try {
-			String altHost = getHostFromSRV(arg1);
-			MinecraftPingReply mpr = MinecraftPing.getPing(altHost, (altHost.contains(":") ? Integer.parseInt(altHost.split(":")[1]) : arg2));
+			System.out.println("Attempting to ping " + arg1 + " with port " + arg2);
+			MinecraftPingReply mpr = MinecraftPing.getPing(arg1, (arg2));
 			return processColorCodes(mpr.getMotd()) + " - " + mpr.getProtocolVersion() + " - " + mpr.getOnlinePlayers() + "/" + mpr.getMaxPlayers();
 		} catch (IOException e) {
 			return null;
@@ -79,24 +79,5 @@ public class Utils {
 	 */
 	static public int getRandom(int max) {
 		return rand.nextInt(max);
-	}
-	
-	public static String getHostFromSRV(String hostname) {
-		try {
-			Class.forName("com.sun.jndi.dns.DnsContextFactory");
-			Hashtable<String, String> var2 = new Hashtable<String, String>();
-			var2.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
-			var2.put("java.naming.provider.url", "dns:");
-			var2.put("com.sun.jndi.dns.timeout.retries", "1");
-			InitialDirContext var3 = new InitialDirContext(var2);
-			Attributes var4 = var3.getAttributes("_minecraft._tcp." + hostname, new String[] { "SRV" });
-			String[] var5 = var4.get("srv").get().toString().split(" ", 4);
-			for (String s : var5) {
-				System.out.println(s.substring(0, s.length() - 1));
-			}
-			return var5[3].substring(0, var5[3].length() - 1) + (!var5[2].contains("25565") ? ":" + var5[2] : "");
-		} catch (Throwable var6) {
-			return hostname;
-		}
 	}
 }
