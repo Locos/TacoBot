@@ -66,7 +66,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("Connected to Spigot Tacos!");
+			System.out.println("Connected to #Tacos!");
 		}
 	}
 
