@@ -12,6 +12,7 @@ import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.UtilSSLSocketFactory;
+import org.pircbotx.cap.SASLCapHandler;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -47,11 +48,18 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			int port = Integer.parseInt((String) config.get("port").toString());
 			System.out.println("Port: " + port);
 			String password = (String) config.get("password");
+			if (password == null) {
+				password = "";
+			}
 			System.out.println("Password: " + password);
 			String channel = (String) config.get("channel");
+			System.out.println("Nickserv: " + password);
+			String nickserv = (String) config.get("nickserv");
 			System.out.println("Channel: " + channel);
 			ssl = (Boolean) config.get("ssl");
 			System.out.println("SSL: " + ssl);
+            bot.setName(NICK);
+            bot.getCapHandlers().add(new SASLCapHandler(NICK, nickserv));
 			if (ssl) {
 				// TODO: Figure out Java Keystore to only trust bouncer
 				// certificate.
@@ -66,7 +74,9 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("Connected to #Tacos!");
+			bot.joinChannel(CHAN);
+			System.out.println("Connected to " + CHAN + "!");
+			bot.sendMessage(CHAN, "420 blaze it faggots");
 		}
 	}
 
