@@ -61,6 +61,13 @@
             </resource>
         </resources>
     </build>
+    <repositories>
+        <repository>
+            <id>Sonatype-public</id>
+            <name>SnakeYAML repository</name>
+            <url>http://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.pircbotx</groupId>
@@ -69,6 +76,12 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.13-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
-    <repositories />
 </project>
