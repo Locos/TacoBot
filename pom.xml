@@ -4,9 +4,9 @@
   
   
   <groupId>net.esper.tacos.ircbot</groupId>
-  <artifactId>ircbot</artifactId>
+  <artifactId>TacoBot</artifactId>
   <packaging>jar</packaging>
-  <name>Tacos IRC Bot</name>
+  <name>TacoBot</name>
   <version>1.0</version>
  
   <properties>
