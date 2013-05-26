@@ -1,5 +1,7 @@
 package net.esper.tacos.ircbot.commands;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Hashtable;
 import java.util.jar.Attributes;
 
@@ -21,13 +23,18 @@ public class mcping implements ICommand {
 					+ "mcping [ip](:port)");
 			return;
 		}
-		String arg1 = args[1];
-		int arg2 = (arg1.split(":").length > 1 ? Integer.parseInt(arg1
-				.split(":")[1]) : Integer.parseInt(getServerPort(arg1)));
-		String res = Utils.getFormattedPing(
-				(arg1.split(":").length > 1 ? arg1.split(":")[0] : arg1), arg2);
+		String arg1 = args[1].split(":")[0];
+		String orig = arg1;
+		String arg2 = "";
+		if (arg1 != args[1]) {
+			arg2 = args[1].split(":")[1];
+		} else {
+			arg2 = getServerPort(arg1);
+		}
+		System.out.println(arg1);
+		String res = Utils.getFormattedPing(arg1, Integer.parseInt(arg2));
 		if (res == null) {
-			TacoBot.sendMessage(user, "Sorry, I could not ping " + arg1 + ", with port " + arg2 + ".");
+			TacoBot.sendMessage(user, "Sorry, I could not ping " + orig + ", with port " + arg2 + ".");
 			return;
 		}
 		TacoBot.sendMessage(user, res);
@@ -58,5 +65,16 @@ public class mcping implements ICommand {
 		} catch (Throwable var6) {
 			return Integer.toString(25565);
 		}
+	}
+	
+	private static String getIpAddress(String hostname) {
+		String ip = "";
+		try {
+			InetAddress addr = InetAddress.getByName(hostname);
+			ip = addr.getHostAddress();
+		} catch (UnknownHostException e) {
+			ip = hostname;
+		}
+		return ip;
 	}
 }
