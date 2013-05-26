@@ -15,9 +15,8 @@ public enum Rank {
 	}
 	
 	public static Rank getRank(User user) {
-		if (user.getNick().equals("vemacs,Z750".split(","))) return UNUSABLE;
 		if (user.getChannelsOpIn().contains(TacoBot.CHAN_OBJ)) {
-			return OP;
+			return UNUSABLE;
 		} else if (user.getChannelsVoiceIn().contains(TacoBot.CHAN_OBJ)) {
 			return VOICE;
 		} else {
