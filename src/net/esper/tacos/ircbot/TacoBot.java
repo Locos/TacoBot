@@ -76,8 +76,10 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			CHAN_OBJ = bot.getChannel(channel);
 			input.close();
 			if (invite) {
+				Thread.sleep(1000);
 				bot.sendMessage("ChanServ", "invite " + channel);
 				bot.sendInvite(bot.getNick(), channel);
+				Thread.sleep(1000);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
