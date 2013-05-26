@@ -1,0 +1,8 @@
+name: TacoBot
+server: irc.esper.net
+port: 6667
+password: 
+nickserv: 
+channel: '#tacos'
+ssl: false
+invite: true
