@@ -64,10 +64,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			System.out.println("SSL: " + ssl);
 			invite = (Boolean) config.get("invite");
 			System.out.println("Invite: " + invite);
-			bot.setName(NICK);
-			if (nickserv != null) {
-				bot.getCapHandlers().add(new SASLCapHandler(NICK, nickserv));
-			}
+
 			if (ssl) {
 				// TODO: Figure out Java Keystore to only trust bouncer
 				// certificate.
@@ -76,13 +73,18 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			} else {
 				bot.connect(server, port, password);
 			}
+			bot.setName(NICK);
+			if (nickserv != null) {
+				bot.identify(nickserv);
+			}
 			CHAN = channel;
 			CHAN_OBJ = bot.getChannel(channel);
 			input.close();
 			if (invite) {
 				Thread.sleep(1000);
-				bot.sendMessage("ChanServ", "invite " + channel);
+				bot.sendRawLine("/msg chanserv invite " + channel);
 				bot.sendInvite(bot.getNick(), channel);
+				System.out.println("attempting invite");
 				Thread.sleep(1000);
 			}
 		} catch (Exception e) {
