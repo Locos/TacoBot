@@ -91,7 +91,6 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			System.out.println("Connected to " + CHAN + "!");
 			bot.sendMessage(CHAN, "420 blaze it faggots");
 			Runtime.getRuntime().addShutdownHook(new Thread(new Shutdown()));
-			System.out.println("Shutting down");
 		}
 	}
 
