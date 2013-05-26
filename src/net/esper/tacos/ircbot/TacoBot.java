@@ -77,11 +77,12 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			input.close();
 			if (invite) {
 				bot.sendRawLine("/cs invite " + channel);
+				bot.sendInvite(bot.getNick(), channel);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			Thread.sleep(3000);
 			bot.joinChannel(CHAN);
 			System.out.println("Connected to " + CHAN + "!");
 			bot.sendMessage(CHAN, "420 blaze it faggots");
