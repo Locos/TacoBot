@@ -47,7 +47,7 @@ public class toywithec implements ICommand {
 	
 	@Override
 	public Rank getRank() {
-		return Rank.UNUSABLE;
+		return Rank.PEASANT;
 	}
 	
 	@Override
