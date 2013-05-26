@@ -32,10 +32,6 @@ public class Utils {
 	public static String getFormattedPing(String arg1, int arg2) {
 		try {
 			System.out.println("Attempting to ping " + arg1 + " with port " + arg2);
-			if (arg2 != 25565) {
-			arg1 = java.net.InetAddress.getByName(arg1).toString().split("/")[1];
-			System.out.println("Resolved as " + arg1);
-			}
 			MinecraftPingReply mpr = MinecraftPing.getPing(arg1, (arg2));
 			return processColorCodes(mpr.getMotd()) + " - " + mpr.getProtocolVersion() + " - " + mpr.getOnlinePlayers() + "/" + mpr.getMaxPlayers();
 		} catch (IOException e) {
