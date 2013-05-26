@@ -28,6 +28,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 	public static Channel CHAN_OBJ;
 	public static final String PREFIX = ".";
 	public static final PircBotX bot = new PircBotX();
+	static volatile boolean keepRunning = true;
 
 	public static void main(String[] args) throws Exception {
 		// Setup
@@ -90,7 +91,19 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			bot.joinChannel(CHAN);
 			System.out.println("Connected to " + CHAN + "!");
 			bot.sendMessage(CHAN, "420 blaze it faggots");
-			Runtime.getRuntime().addShutdownHook(new Thread(new Shutdown()));
+			final Thread mainThread = Thread.currentThread();
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+			    public void run() {
+			        keepRunning = false;
+			        bot.disconnect();
+			        System.out.println("Shutting Down");
+			        try {
+						mainThread.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+			    }
+			});
 		}
 	}
 
