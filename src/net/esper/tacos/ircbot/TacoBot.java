@@ -15,6 +15,7 @@ import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.cap.SASLCapHandler;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.KickEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 import org.pircbotx.hooks.events.PrivateMessageEvent;
 import org.yaml.snakeyaml.Yaml;
@@ -122,5 +123,11 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		}
 
 		CommandProcessor.process(event);
+	}
+	
+	public void onChannelKick(KickEvent event) {
+		if (event.getRecipient().getNick().toLowerCase().equals(NICK.toLowerCase())) {
+			bot.joinChannel(CHAN);
+		}
 	}
 }
