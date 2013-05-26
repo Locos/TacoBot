@@ -2,7 +2,6 @@ package net.esper.tacos.ircbot;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.cap.SASLCapHandler;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.InviteEvent;
 import org.pircbotx.hooks.events.KickEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 import org.pircbotx.hooks.events.PrivateMessageEvent;
@@ -76,13 +76,12 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			CHAN_OBJ = bot.getChannel(channel);
 			input.close();
 			if (invite) {
-				bot.sendRawLine("/cs invite " + channel);
+				bot.sendMessage("ChanServ", "invite " + channel);
 				bot.sendInvite(bot.getNick(), channel);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			Thread.sleep(3000);
 			bot.joinChannel(CHAN);
 			System.out.println("Connected to " + CHAN + "!");
 			bot.sendMessage(CHAN, "420 blaze it faggots");
@@ -121,6 +120,14 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		}
 		addMsg("<" + event.getUser().getNick() + "> " + event.getMessage());
 		CommandProcessor.process(event);
+	}
+	
+	@Override
+	public void onInvite(InviteEvent event) throws Exception {
+		if (!event.getChannel().equals(CHAN)) {
+			bot.joinChannel(CHAN);
+			System.out.println("Connected to " + CHAN + "!");
+		}
 	}
 
 	@Override
