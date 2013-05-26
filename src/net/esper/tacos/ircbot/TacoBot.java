@@ -32,7 +32,6 @@ public class TacoBot extends ListenerAdapter implements Listener {
 	public static void main(String[] args) throws Exception {
 		// Setup
 		CommandProcessor.init();
-		bot.setName(NICK);
 		// bot.setVerbose(true);
 		bot.setVersion("TacoBot v1.2 - For #tacos only!");
 		bot.getListenerManager().addListener(new TacoBot());
@@ -44,7 +43,9 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			Map config = (Map) yaml.load(input);
 			boolean ssl = false;
 			boolean invite = false;
-
+			NICK = (String) config.get("name");
+			System.out.println("Name: " + NICK);
+			bot.setName(NICK);
 			String server = (String) config.get("server");
 			System.out.println("Server: " + server);
 			int port = Integer.parseInt((String) config.get("port").toString());
@@ -62,8 +63,10 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			System.out.println("SSL: " + ssl);
 			invite = (Boolean) config.get("invite");
 			System.out.println("Invite: " + invite);
-            bot.setName(NICK);
-            bot.getCapHandlers().add(new SASLCapHandler(NICK, nickserv));
+			bot.setName(NICK);
+			if (nickserv != null) {
+				bot.getCapHandlers().add(new SASLCapHandler(NICK, nickserv));
+			}
 			if (ssl) {
 				// TODO: Figure out Java Keystore to only trust bouncer
 				// certificate.
@@ -123,7 +126,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		addMsg("<" + event.getUser().getNick() + "> " + event.getMessage());
 		CommandProcessor.process(event);
 	}
-	
+
 	@Override
 	public void onInvite(InviteEvent event) throws Exception {
 		if (!event.getChannel().equals(CHAN)) {
@@ -138,12 +141,13 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			event.respond("Sorry, but this bot does not support private messaging capabilities.");
 			return;
 		}
-
+		System.out.println(event.getMessage());
 		CommandProcessor.process(event);
 	}
-	
+
 	public void onChannelKick(KickEvent event) {
-		if (event.getRecipient().getNick().toLowerCase().equals(NICK.toLowerCase())) {
+		if (event.getRecipient().getNick().toLowerCase()
+				.equals(NICK.toLowerCase())) {
 			bot.joinChannel(CHAN);
 		}
 	}
