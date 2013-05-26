@@ -43,6 +43,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			Yaml yaml = new Yaml();
 			Map config = (Map) yaml.load(input);
 			boolean ssl = false;
+			boolean invite = false;
 
 			String server = (String) config.get("server");
 			System.out.println("Server: " + server);
@@ -53,12 +54,14 @@ public class TacoBot extends ListenerAdapter implements Listener {
 				password = "";
 			}
 			System.out.println("Password: " + password);
-			String channel = (String) config.get("channel");
-			System.out.println("Nickserv: " + password);
 			String nickserv = (String) config.get("nickserv");
+			System.out.println("Nickserv: " + nickserv);
+			String channel = (String) config.get("channel");
 			System.out.println("Channel: " + channel);
 			ssl = (Boolean) config.get("ssl");
 			System.out.println("SSL: " + ssl);
+			invite = (Boolean) config.get("invite");
+			System.out.println("Invite: " + invite);
             bot.setName(NICK);
             bot.getCapHandlers().add(new SASLCapHandler(NICK, nickserv));
 			if (ssl) {
@@ -72,9 +75,13 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			CHAN = channel;
 			CHAN_OBJ = bot.getChannel(channel);
 			input.close();
+			if (invite) {
+				bot.sendRawLine("/cs invite " + channel);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+
 			bot.joinChannel(CHAN);
 			System.out.println("Connected to " + CHAN + "!");
 			bot.sendMessage(CHAN, "420 blaze it faggots");
