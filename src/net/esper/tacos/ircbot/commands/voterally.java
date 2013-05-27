@@ -10,6 +10,7 @@ import net.esper.tacos.ircbot.Rank;
 import net.esper.tacos.ircbot.TacoBot;
 
 import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 
 public class voterally implements ICommand {
@@ -27,7 +28,7 @@ public class voterally implements ICommand {
 			users.remove(filtered);
 		}
 		for (User user : users) {
-			if (user.isAway() || user.getNick().contains("afk")) {
+			if (user.isAway() || user.getNick().contains("afk") || user.isVerified()) {
 				users.remove(user);
 			}
 		}
