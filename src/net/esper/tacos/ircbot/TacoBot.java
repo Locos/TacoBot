@@ -36,7 +36,6 @@ public class TacoBot extends ListenerAdapter implements Listener {
 	public static List<String> trollmessages = Collections
 			.synchronizedList(new ArrayList<String>());
 
-
 	public static void main(String[] args) throws Exception {
 		// Setup
 		CommandProcessor.init();
@@ -114,15 +113,17 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				public void run() {
 					keepRunning = false;
+					for (Channel c : bot.getChannels()) {
+						bot.partChannel(c, "Shutting down");
+					}
 					bot.disconnect();
 					System.out.println("Shutting Down");
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.exit(0);
+					mainThread.interrupt();
 				}
 			});
 		}
