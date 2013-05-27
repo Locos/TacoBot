@@ -83,8 +83,7 @@ public class voterally implements ICommand {
 			return; // damn
 		}
 		if (args[1].equals("cancel") && voteUser == null) {
-			TacoBot.sendMessage(user, "Usage: " + TacoBot.PREFIX
-					+ "voterally [user]");
+			TacoBot.sendMessage(user, "There is no vote rally to cancel.");
 			return;
 		}
 		if (!args[1].startsWith("!")) {
