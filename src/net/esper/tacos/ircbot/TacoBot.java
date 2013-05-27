@@ -33,6 +33,9 @@ public class TacoBot extends ListenerAdapter implements Listener {
 	static volatile boolean keepRunning = true;
 	public static List<String> blacklist = Collections
 			.synchronizedList(new ArrayList<String>());
+	public static List<String> trollmessages = Collections
+			.synchronizedList(new ArrayList<String>());
+
 
 	public static void main(String[] args) throws Exception {
 		// Setup
@@ -71,6 +74,11 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			blacklist = (List<String>) config.get("blacklist");
 			System.out.println("Blacklist:");
 			for (String u : blacklist) {
+				System.out.println(u);
+			}
+			trollmessages = (List<String>) config.get("trollmessages");
+			System.out.println("Troll Messages:");
+			for (String u : trollmessages) {
 				System.out.println(u);
 			}
 
