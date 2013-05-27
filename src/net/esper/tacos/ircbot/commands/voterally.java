@@ -19,10 +19,9 @@ public class voterally implements ICommand {
 	public static boolean endRally = false;
 	public static List<String> agree = Collections.synchronizedList(new ArrayList<String>());
 	public static List<String> disagree = Collections.synchronizedList(new ArrayList<String>());
-	public static String[] blacklist = "serge,joehot200,Sway,AeSiX,hcherndon,Aikar,Puremin0rez,LiLChris,nhadobas,md_5,EncryptedCurse,EvilSeph,TnT,Wolvereness".split(",");
 
 	private static List<User> getFilteredList() {
-		String[] filteredUsers = "Dicector,Projectile".split(",");
+		String[] filteredUsers = TacoBot.getOps();
 		List<User> users = new CopyOnWriteArrayList<User>(TacoBot.CHAN_OBJ.getUsers());
 		for (String filtered : filteredUsers) {
 			users.remove(filtered);
@@ -36,7 +35,7 @@ public class voterally implements ICommand {
 	}
 	
 	private static boolean isBlacklisted(String user) {
-		for (String g : blacklist) {
+		for (String g : TacoBot.blacklist) {
 			if(g.equalsIgnoreCase(user)) {
 				return true;
 			}

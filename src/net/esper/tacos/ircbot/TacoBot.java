@@ -3,6 +3,8 @@ package net.esper.tacos.ircbot;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -29,6 +31,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 	public static final String PREFIX = ".";
 	public static final PircBotX bot = new PircBotX();
 	static volatile boolean keepRunning = true;
+	public static List<String> blacklist = Collections.synchronizedList(new ArrayList<String>());
 
 	public static void main(String[] args) throws Exception {
 		// Setup
@@ -64,7 +67,12 @@ public class TacoBot extends ListenerAdapter implements Listener {
 			System.out.println("SSL: " + ssl);
 			invite = (Boolean) config.get("invite");
 			System.out.println("Invite: " + invite);
-
+			blacklist = (List<String>) config.get("blacklist");
+			System.out.println("Blacklist:");
+			for(String u : blacklist) {
+				System.out.println(u);
+			}
+			
 			if (ssl) {
 				// TODO: Figure out Java Keystore to only trust bouncer
 				// certificate.
@@ -124,6 +132,14 @@ public class TacoBot extends ListenerAdapter implements Listener {
 
 	public static void sendMessage(String user, String message) {
 		sendMessage("(" + user + ") " + message);
+	}
+	
+	public static String[] getOps() {
+		String users = "";
+		for(User u : ((Channel) bot.getChannels()).getOps()) {
+			users = users + (u.getNick() + ",");
+		}
+		return users.substring(0, users.length() - 1).split(",");
 	}
 
 	public static void sendMessage(String message) {
