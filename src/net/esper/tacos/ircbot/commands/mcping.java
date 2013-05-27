@@ -32,7 +32,7 @@ public class mcping implements ICommand {
 			arg2 = getServerPort(arg1);
 		}
 		System.out.println(arg1);
-		String res = Utils.getFormattedPing(arg1, Integer.parseInt(arg2));
+		String res = Utils.getFormattedPing(getServerHost(arg1), Integer.parseInt(arg2));
 		if (res == null) {
 			TacoBot.sendMessage(user, "Sorry, I could not ping " + orig + ", with port " + arg2 + ".");
 			return;
@@ -64,6 +64,23 @@ public class mcping implements ICommand {
 			return var5[2];
 		} catch (Throwable var6) {
 			return Integer.toString(25565);
+		}
+	}
+	
+	private static String getServerHost(String par0Str) {
+		try {
+			Class.forName("com.sun.jndi.dns.DnsContextFactory");
+			Hashtable var2 = new Hashtable();
+			var2.put("java.naming.factory.initial",
+					"com.sun.jndi.dns.DnsContextFactory");
+			var2.put("java.naming.provider.url", "dns:");
+			InitialDirContext var3 = new InitialDirContext(var2);
+			javax.naming.directory.Attributes var4 = var3.getAttributes(
+					"_minecraft._tcp." + par0Str, new String[] { "SRV" });
+			String[] var5 = var4.get("srv").get().toString().split(" ", 4);
+			return var5[3];
+		} catch (Throwable var6) {
+			return par0Str;
 		}
 	}
 	
