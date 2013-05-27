@@ -116,7 +116,7 @@ public class TacoBot extends ListenerAdapter implements Listener {
 					keepRunning = false;
 					bot.disconnect();
 					System.out.println("Shutting Down");
-					mainThread.stop();
+					System.exit(0);
 				}
 			});
 		}
