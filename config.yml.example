@@ -6,3 +6,6 @@ nickserv:
 channel: '#tacos'
 ssl: false
 invite: true
+blacklist:
+  - xX420ProMLGXx
+  - joehot200
