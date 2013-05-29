@@ -13,22 +13,22 @@ public class toywithec implements ICommand {
 		
 	@Override
 	public void exec(String message, String[] args, User user) {
-		User ec = TacoBot.bot.getUser("EncryptedCurse");
+		User ec = TacoBot.bot.getUser("vemacs");
 		if (!ec.getChannels().contains(TacoBot.CHAN_OBJ) && !user.getChannelsOpIn().contains(TacoBot.CHAN_OBJ)) {
-			TacoBot.sendMessage(user, "Sorry, EncryptedCurse is not around to be toyed with.");
+			TacoBot.sendMessage(user, "Sorry, vemacs is not around to be toyed with.");
 			return;
 		}
 		// Let's troll him :D
 		String rand = TacoBot.trollmessages.get(Utils.getRandom(TacoBot.trollmessages.size()));
 		if (rand.contains(":::")) {
 			String[] spl = rand.split(":::");
-			TacoBot.sendMessage("EncryptedCurse", spl[0]);
+			TacoBot.sendMessage("vemacs", spl[0]);
 			try {
 				Thread.sleep(Utils.getRandom(5000));
 			} catch (InterruptedException e) {}
-			TacoBot.sendMessage("EncryptedCurse", spl[1]);
+			TacoBot.sendMessage("vemacs", spl[1]);
 		} else {
-			TacoBot.sendMessage("EncryptedCurse", rand);
+			TacoBot.sendMessage("vemacs", rand);
 		}
 	}
 	
