@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Random;
 
 import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
@@ -108,7 +109,9 @@ public class TacoBot extends ListenerAdapter implements Listener {
 		} finally {
 			bot.joinChannel(CHAN);
 			System.out.println("Connected to " + CHAN + "!");
-			bot.sendMessage(CHAN, "420 blaze it faggots");
+			String joinMsg[] = {"420 blaze it faggots", "240 glaze it maggots"};
+			Collections.shuffle(Arrays.asList(joinMsg));
+			bot.sendMessage(CHAN, joinMsg);
 			final Thread mainThread = Thread.currentThread();
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				public void run() {
