@@ -44,8 +44,17 @@ public class CommandProcessor {
 					}
 				}
 				ASLEEP = false;
-				MessageEvent<?> ev = events.remove(events.size() - 1);
 				
+				// I have no idea why I'm adding this check
+				// So I'm adding this check, even though I have no idea why we need this
+				// Except the bot is constantly crashing for some reason
+				if (events.size() < 1) {
+					return;
+				}
+				// Somebody else good at logic pls help
+				// pls
+				
+				MessageEvent<?> ev = events.remove(events.size() - 1);
 				if (ev.getMessage().startsWith(TacoBot.PREFIX) && !ev.getMessage().startsWith(TacoBot.PREFIX + "/")) {
 					// Ok attempt to use reflection!
 					ICommand cmd = null;
