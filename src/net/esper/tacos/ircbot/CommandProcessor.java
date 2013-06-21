@@ -33,7 +33,7 @@ public class CommandProcessor {
 		@SuppressWarnings("unchecked")
 		public void run() {
 			while (true) {
-				if (events.size() == 0) {
+				if (events.size() < 1) {
 					ASLEEP = true;
 					try {
 						synchronized (PROC) {
@@ -45,14 +45,6 @@ public class CommandProcessor {
 				}
 				ASLEEP = false;
 				
-				// I have no idea why I'm adding this check
-				// So I'm adding this check, even though I have no idea why we need this
-				// Except the bot is constantly crashing for some reason
-				if (events.size() < 1) {
-					return;
-				}
-				// Somebody else good at logic pls help
-				// pls
 				
 				MessageEvent<?> ev = events.remove(events.size() - 1);
 				if (ev.getMessage().startsWith(TacoBot.PREFIX) && !ev.getMessage().startsWith(TacoBot.PREFIX + "/")) {
